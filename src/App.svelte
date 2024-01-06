@@ -19,7 +19,8 @@
 			description: 'In this meetup, we will have some experts that teach you how to code!',
 			imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			address: '27th Nerd Road, 32523 New York',
-			contactEmail: 'example@email.com'
+			contactEmail: 'example@email.com',
+      isFavorite: false
 		},
 		{
 			id: 'm2',
@@ -28,7 +29,8 @@
 			description: 'We will simply swim some rounds!',
 			imageUrl: 'https://images.unsplash.com/photo-1560090995-01632a28895b?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			address: '27th Nerd Road, 32523 New York',
-			contactEmail: ''
+			contactEmail: 'test@example.com',
+      isFavorite: false
 		},
     {
 			id: 'm3',
@@ -37,7 +39,8 @@
 			description: 'In this meetup, we will have some experts that teach you how to code!',
 			imageUrl: 'https://images.unsplash.com/photo-1577648188599-291bb8b831c3?q=80&w=2079&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			address: '27th Nerd Road, 32523 New York',
-			contactEmail: 'example@email.com'
+			contactEmail: 'example@email.com',
+      isFavorite: false
 		},
 		{
 			id: 'm4',
@@ -46,7 +49,8 @@
 			description: 'We will simply swim some rounds!',
 			imageUrl: 'https://images.unsplash.com/photo-1526889588514-2e695856df85?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			address: '27th Nerd Road, 32523 New York',
-			contactEmail: 'example@email.com'
+			contactEmail: 'example@email.com',
+      isFavorite: false
 		},
     {
 			id: 'm5',
@@ -55,7 +59,9 @@
 			description: 'In this meetup, we will meetup with other book lovers and share our favorite books!',
 			imageUrl: 'https://images.unsplash.com/photo-1656778669500-7afe7f78c3d0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			address: '27th Nerd Road, 32523 New York',
-			contactEmail: 'example@email.com'
+			contactEmail: 'example@email.com',
+      isFavorite: false
+
 		},
 		{
 			id: 'm6',
@@ -64,7 +70,8 @@
 			description: 'We will simply swim some rounds!',
 			imageUrl: 'https://plus.unsplash.com/premium_photo-1683146516128-68b12cc44af1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			address: '27th Nerd Road, 32523 New York',
-			contactEmail: 'example@email.com'
+			contactEmail: 'example@email.com',
+			isFavorite: false
 		}
 	]
 
@@ -89,6 +96,16 @@
 		imageUrl = ''
 		email = ''
 		description = ''
+	}
+
+  function toggleFavorite(event) {
+		const id = event.detail
+		const updatedMeetup = { ...meetups.find(m => m.id === id)}
+		updatedMeetup.isFavorite = !updatedMeetup.isFavorite
+		const meetupIndex = meetups.findIndex(m => m.id === id)
+		const updatedMeetups = [...meetups]
+		updatedMeetups[meetupIndex] = updatedMeetup
+		meetups = updatedMeetups
 	}
 
 </script>
@@ -148,7 +165,7 @@
 		/>
 		<Button type="submit" caption="Save" />
 	</form>
-	<MeetupGrid meetups={meetups} />
+	<MeetupGrid meetups={meetups} on:toggleFavorite={toggleFavorite}/>
 </main>
 
 
