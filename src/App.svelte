@@ -70,6 +70,9 @@
 
 	let editMode = ''
 
+	function cancelEdit() {
+		editMode = null
+	}
 	function addMeetup (event) {
 
 		const newMeetup = {
@@ -113,7 +116,7 @@
 		<Button on:click={() => editMode = 'add'}>Add Meetup</Button>
 	</div>
 	{#if editMode === 'add'}
-		<EditMeetup on:save={addMeetup} on:cancel={() => editMode = ''}/>
+		<EditMeetup on:save={addMeetup} on:cancel={cancelEdit}/>
 	{/if}
 		<MeetupGrid meetups={meetups} on:toggleFavorite={toggleFavorite}/>
 
