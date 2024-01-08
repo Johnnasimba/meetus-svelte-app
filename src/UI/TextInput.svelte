@@ -5,6 +5,10 @@
 	export let rows = 3
 	export let value
 	export let type = 'text'
+  export let valid = true
+  export let validityMessage = ''
+
+	let touched = false
 </script>
 
 <style>
@@ -38,14 +42,32 @@
     width: 100%;
     margin: 0.25rem 0;
   }
+	.invalid {
+		border-color: red;
+		background: #fde3e3;
+	}
+	.error-message {
+		color: red;
+		margin: 0.25rem 0;
+	}
 </style>
 
 <div class="form-control">
 	<label for={id}>{label}</label>
 	{#if controlType  === 'textarea'}
-		<textarea id={id} rows={rows} value={value} on:input></textarea>
+		<textarea
+			id={id} rows={rows} bind:value
+			class:invalid={!valid && touched} on:blur={() => touched = true}
+		/>
+
 	{:else}
-		<input type={type} id={id} value={value} on:input />
+		<input
+			type={type} id={id} value={value} on:input
+			class:invalid={!valid && touched} on:blur={() => touched = true}
+		/>
+	{/if}
+	{#if validityMessage && !valid && touched}
+		<p class="error-message">{validityMessage}</p>
 	{/if}
 </div>
 
